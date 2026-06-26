@@ -1,8 +1,8 @@
 # eve-pi
 
-Run [PI](https://pi.dev) as an `eve` custom runner.
+Run [PI](https://pi.dev) from `eve`.
 
-This package is for the runner-level integration:
+The primary API is the runner-level integration:
 
 ```ts
 import { defineAgent } from "eve";
@@ -18,6 +18,26 @@ export default defineAgent({
 In this mode, PI is the coding agent. It owns its tool loop, session behavior,
 model auth, and filesystem work. `eve` owns the filesystem-first agent project
 and calls PI through the runner boundary.
+
+The package also includes a model-level adapter:
+
+```ts
+import { defineAgent } from "eve";
+import { builtinModels, getBuiltinModel } from "@earendil-works/pi-ai/providers/all";
+import { piModel } from "@balasivagn/eve-pi";
+
+const models = builtinModels();
+
+export default defineAgent({
+  model: piModel({
+    models,
+    model: getBuiltinModel("openai-codex", "gpt-5.3-codex-spark"),
+  }),
+});
+```
+
+In this mode, `eve` owns the agent loop and tools. PI is used as the model
+provider through PI's own model/auth layer.
 
 ## Install
 
@@ -77,5 +97,11 @@ eve model loop/tools/session -> PI-authenticated model provider
 `@balasivagn/eve-pi` is the runner integration. That is the right path when PI
 should act as the coding agent.
 
-A model-level provider can be added separately later, similar in spirit to
-`flue-pi-auth`, when the host framework should keep ownership of the agent loop.
+`piModel(...)` is the model-level integration. Use it when `eve` should keep
+ownership of the tool loop and only call PI as the model provider.
+
+Current `piModel(...)` limits:
+
+- Text and reasoning are adapted.
+- AI SDK client-side tools are not translated into PI tool definitions yet.
+- For PI-owned coding tools and session behavior, use `piRunner(...)`.

@@ -25,9 +25,13 @@
     "test": "vitest run"
   },
   "peerDependencies": {
+    "@ai-sdk/provider": ">=4.0.0-beta.19",
+    "@earendil-works/pi-ai": ">=0.80.2",
     "eve": ">=0.13.8"
   },
   "devDependencies": {
+    "@ai-sdk/provider": "4.0.0-beta.19",
+    "@earendil-works/pi-ai": "^0.80.2",
     "@types/node": "^24.12.4",
     "eve": "link:../eve/packages/eve",
     "typescript": "^5.9.3",
