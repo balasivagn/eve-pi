@@ -1,0 +1,36 @@
+{
+  "name": "@balasivagn/eve-pi",
+  "version": "0.1.0",
+  "description": "Run PI as an eve custom runner.",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balasivagn/eve-pi.git"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "eve": ">=0.13.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.12.4",
+    "eve": "link:../eve/packages/eve",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.9"
+  }
+}
